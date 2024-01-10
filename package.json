@@ -1,0 +1,38 @@
+{
+  "name": "@lihaochen/unocss-preset-monorepo",
+  "type": "module",
+  "private": true,
+  "packageManager": "pnpm@8.14.0",
+  "scripts": {
+    "dev": "pnpm run stub && pnpm --filter=./playground run dev",
+    "stub": "pnpm -r --filter=./packages/* --parallel run stub",
+    "build": "rimraf packages/*/dist && pnpm -r --filter=./packages/* run build",
+    "release": "bumpp -r",
+    "prepare": "simple-git-hooks"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^2.6.1",
+    "@lihaochen/kite": "^0.2.0",
+    "@lihaochen/unocss-preset": "workspace:*",
+    "@types/node": "^20.10.7",
+    "@unocss/reset": "^0.58.3",
+    "@vitejs/plugin-vue": "^5.0.2",
+    "bumpp": "^9.2.1",
+    "eslint": "^8.56.0",
+    "lint-staged": "^15.2.0",
+    "rimraf": "^5.0.5",
+    "simple-git-hooks": "^2.9.0",
+    "typescript": "^5.3.3",
+    "unbuild": "^2.0.0",
+    "unocss": "^0.58.3",
+    "vite": "^5.0.11",
+    "vite-plugin-inspect": "^0.8.1",
+    "vue": "^3.4.5"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged"
+  },
+  "lint-staged": {
+    "*": "eslint --fix"
+  }
+}
