@@ -23,22 +23,14 @@ const article = 'This post will be a bit longer than usual. It’s quite a big a
     <div>ss</div>
   </div>
   <div grid="~ cols-2 center" h40>
-    <div>
-      ss
-    </div>
-    <div>
-      ss
-    </div>
-    <div>
-      ss
-    </div>
-    <div>
-      ss
-    </div>
+    <div>ss</div>
+    <div>ss</div>
+    <div>ss</div>
+    <div>ss</div>
   </div>
   <h2>Position</h2>
   <h3>Absolute</h3>
-  <div relative w50 h50 bg-gray b--2 rd of-hidden>
+  <div relative w50 h50 bg-gray rd of-hidden>
     <div absolute="~ t" h1 bg-blue />
     <div absolute="~ t-2" h1 bg-blue />
     <div absolute="~ r" w1 bg-blue />
@@ -58,5 +50,24 @@ const article = 'This post will be a bit longer than usual. It’s quite a big a
     <div absolute="~ center" w5 h5 bg-blue />
     <div absolute="~ full" bg-blue:50 />
   </div>
-  <div size-20 rd-full bg-blue />
+  <div p10>
+    <div relative mt10 size-50 bg-gray rd>
+      <div absolute="~ center" size-5 bg-blue rd />
+      <div absolute="~ center-r" z1 size-5 bg-red rd />
+      <div absolute="~ center-rr" size-5 bg-blue rd />
+      <div absolute="~ center-rl" size-5 bg-blue rd />
+      <div absolute="~ center-l" z1 size-5 bg-red rd />
+      <div absolute="~ center-ll" size-5 bg-blue rd />
+      <div absolute="~ center-lr" size-5 bg-blue rd />
+      <div absolute="~ center-t" z1 size-5 bg-red rd />
+      <div absolute="~ center-tt" size-5 bg-blue rd />
+      <div absolute="~ center-tb" size-5 bg-blue rd />
+      <div absolute="~ center-b" z1 size-5 bg-red rd />
+      <div absolute="~ center-bb" size-5 bg-blue rd />
+      <div absolute="~ center-bt" size-5 bg-blue rd />
+      <div absolute="~ full" bg-green:40 rd />
+      <div absolute="~ full-2" bg-black:20 rd />
+      <div absolute="~ full--2" bg-black:20 rd />
+    </div>
+  </div>
 </template>

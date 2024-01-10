@@ -56,18 +56,42 @@ const directionMap: Record<string, string[]> = {
   rb: ['vbottom', 'vright'],
 }
 
+function getDirectionMapKeys() {
+  return Object.keys(directionMap)
+}
+
+const positionsCenterRules: StaticRule[] = [
+  ['', { top: '50%', left: '50%', transform: 'translate3d(-50%, -50%, 0)' }],
+  ['r', { top: '50%', right: '0', transform: 'translate3d(50%, -50%, 0)' }],
+  ['rr', { top: '50%', right: '0', transform: 'translate3d(100%, -50%, 0)' }],
+  ['rl', { top: '50%', right: '0', transform: 'translate3d(0, -50%, 0)' }],
+  ['l', { top: '50%', left: '0', transform: 'translate3d(-50%, -50%, 0)' }],
+  ['ll', { top: '50%', left: '0', transform: 'translate3d(-100%, -50%, 0)' }],
+  ['lr', { top: '50%', left: '0', transform: 'translate3d(0, -50%, 0)' }],
+  ['t', { top: '0', left: '50%', transform: 'translate3d(-50%, -50%, 0)' }],
+  ['tt', { top: '0', left: '50%', transform: 'translate3d(-50%, -100%, 0)' }],
+  ['tb', { top: '0', left: '50%', transform: 'translate3d(-50%, 0, 0)' }],
+  ['b', { bottom: '0', left: '50%', transform: 'translate3d(-50%, 50%, 0)' }],
+  ['bb', { bottom: '0', left: '50%', transform: 'translate3d(-50%, 100%, 0)' }],
+  ['bt', { bottom: '0', left: '50%', transform: 'translate3d(-50%, 0, 0)' }],
+]
+
+function genPositionsCenterRules(position: string): StaticRule[] {
+  return positionsCenterRules.map(([k, v]) => [`${position}-center${k ? '-' : ''}${k}`, v])
+}
+
 export const positions: Rule[] = [
   // absolute
-  ['absolute-center', { top: '50%', left: '50%', transform: 'translate3d(-50%, -50%, 0)' }],
-  ['absolute-full', { top: '0', left: '0', right: '0', bottom: '0' }],
-  [/^absolute-([rltb])(?:-(.+))?$/, handlePositions, { autocomplete: [`absolute-(${Object.keys(directionMap).join('|')})-<num>`] }],
+  [/^absolute-([rltb])(?:-(.+))?$/, handlePositions, { autocomplete: [`absolute-(${getDirectionMapKeys().join('|')})-<num>`] }],
   [/^absolute-([rltb]{2})(?:-(.+))?$/, handlePositions],
+  [/^absolute-full(?:-(.+))?$/, handleFullPositions, { autocomplete: ['absolute-full-<num>'] }],
+  ...genPositionsCenterRules('absolute'),
 
   // fixed
-  ['fixed-center', { top: '50%', left: '50%', transform: 'translate3d(-50%, -50%, 0)' }],
-  ['fixed-full', { top: '0', left: '0', right: '0', bottom: '0' }],
-  [/^fixed-([rltb])(?:-(.+))?$/, handlePositions, { autocomplete: [`fixed-(${Object.keys(directionMap).join('|')})-<num>`] }],
+  [/^fixed-([rltb])(?:-(.+))?$/, handlePositions, { autocomplete: [`fixed-(${getDirectionMapKeys().join('|')})-<num>`] }],
   [/^fixed-([rltb]{2})(?:-(.+))?$/, handlePositions],
+  [/^fixed-full(?:-(.+))?$/, handleFullPositions, { autocomplete: ['fixed-full-<num>'] }],
+  ...genPositionsCenterRules('fixed'),
 ]
 
 function handlePositions([_, a, s]: string[]): CSSEntries | undefined {
@@ -75,4 +99,13 @@ function handlePositions([_, a, s]: string[]): CSSEntries | undefined {
     const v = s ? h.bracket.cssvar.global.fraction.rem(s) : '0'
     return directionMap[a].map(i => i[0] === 'v' ? [i.slice(1), v] : [i, '0'])
   }
+}
+
+function handleFullPositions([_, s = '']: string[]): CSSEntries | undefined {
+  const props = ['right', 'left', 'top', 'bottom']
+  if (!s)
+    return props.map(i => [i, '0'])
+  const v = h.bracket.cssvar.global.fraction.rem(s)
+  if (v)
+    return props.map(i => [i, v])
 }
