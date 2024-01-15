@@ -2,6 +2,8 @@ import {
   defineConfig,
   presetAttributify,
   presetUno,
+  transformerDirectives,
+  transformerVariantGroup,
 } from 'unocss'
 import {
   presetKite,
@@ -14,5 +16,9 @@ export default defineConfig({
     presetAttributify(),
     presetKite(),
     presetRemToVw(),
+  ],
+  transformers: [
+    transformerDirectives(),
+    transformerVariantGroup(),
   ],
 })

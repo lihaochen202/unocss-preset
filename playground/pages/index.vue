@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const pages = ['ellipsis', 'flex', 'grid', 'position']
+const pages = ['ellipsis', 'flex', 'grid', 'position', 'scrollbar']
 </script>
 
 <template>

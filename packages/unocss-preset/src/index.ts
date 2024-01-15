@@ -1,5 +1,7 @@
 import { definePreset } from '@unocss/core'
 import { rules } from './rules'
+import { variants } from './variants'
+import { shortcuts } from './shortcuts'
 
 export * from '@lihaochen/unocss-preset-rem-to-vw'
 
@@ -18,5 +20,7 @@ export const presetKite = definePreset((options: PersetKiteOptions = {}) => {
       [layer]: -1,
     },
     rules,
+    shortcuts,
+    variants,
   }
 })
